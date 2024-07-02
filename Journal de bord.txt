@@ -10,3 +10,8 @@ Journal de bord
 --> ToDo :
     -> Layout
     -> Tester l'IA de Lionel
+
+
+Mini tuto :
+
+Enlever un commit : git rebase -i
