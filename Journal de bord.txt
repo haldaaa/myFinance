@@ -3,3 +3,10 @@ Journal de bord
 30/06/2024
 
 -> Git init du projet.
+
+
+02/07/2024 
+
+--> ToDo :
+    -> Layout
+    -> Tester l'IA de Lionel
