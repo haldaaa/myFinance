@@ -1,0 +1,38 @@
+.myNavbar {
+
+  background-color: #c6b0b0;
+
+  overflow: hidden;
+
+  position: fixed; /* Fixe la barre de menu à gauche */
+
+  left: 0;
+
+  top: 0;
+
+  height: 100%; /* S'étend sur toute la hauteur de la page */
+
+  padding-top: 60px; /* Ajoute un espace en haut */
+
+  padding-left: 40px; /* Ajoute un espace à gauche */
+
+}
+
+
+
+#myNavbar:hover {
+
+  background-color: #444; /* Change la couleur de fond au survol */
+
+}
+
+
+#textAcceuil {
+  background-color: #c6b0b0;
+  padding-top: 100px;
+}
+
+
+.container {
+  margin-top: 8%;
+}

@@ -16,25 +16,20 @@ use App\Http\Controllers\ActionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', function() {
+    return view('acceuil');
+})->name('acceuil');
 
 
 
-Route::post('/commercial', [CommercialController::class, 'acheteAction'])->name('caca');
+Route::post('/commercial', [CommercialController::class, 'acheteAction'])->name('commercialIndex');
 
 
 Route::get('/jetest', [ActionController::class, 'actionsParCommercial']);
 
 
-Route::get('/test', function() {
-    return view('partial.navbar');
-});
 
-Route::get('/test2', function() {
-    return view('test2');
-});
 
 
 

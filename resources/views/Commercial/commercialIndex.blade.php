@@ -1,15 +1,13 @@
 <!-- resources/views/commercial/index.blade.php -->
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Commercial Index</title>
-</head>
-<body>
-    <p>Je suis la page Commercial index</p>
+@extends('layout')
+@section('contenu')
+
+
+   
 
     <div class="container">
-        <p>TEST</p>
-        <h1>Liste des commerciaux</h1>
+       
+        <h1>Liste des commerciaux</h1> <br> <br>
         <ul>
             @foreach ($commercialInfo as $commercial2)
                 <li>
@@ -19,10 +17,8 @@
                 </li>
             @endforeach
         </ul>
-        <form action="{{ route('caca') }}" method="POST">
-            @csrf
-            <button type="submit">Appuyer sur le bouton</button>
-        </form>
+ 
     </div>
-</body>
-</html>
+
+
+@endsection
