@@ -23,7 +23,7 @@ Route::get('/', function() {
 
 
 
-Route::post('/commercial', [CommercialController::class, 'acheteAction'])->name('commercialIndex');
+
 
 
 Route::get('/jetest', [ActionController::class, 'actionsParCommercial']);
@@ -31,11 +31,14 @@ Route::get('/jetest', [ActionController::class, 'actionsParCommercial']);
 
 
 
+/* Commercial */ 
 
-
+Route::post('/commercial', [CommercialController::class, 'acheteAction'])->name('commercialIndex');
 Route::get('/commercial', [CommercialController::class, 'index'])->name('commercial.index');
 Route::get('/commercial/{id}', [CommercialController::class, 'show'])->name('commercial.show');
 
 
-Route::get('/transaction', [DetailCommandeController::class, 'index'])->name('transaction.index');
-Route::get('/transaction{id}', [DetailCommandeController::class, 'show'])->name('transaction.show');
+/* Transaction */ 
+
+Route::get('/transaction', [DetailCommandeController::class, 'index'])->name('transactionIndex');
+Route::get('/transaction/{id}', [DetailCommandeController::class, 'show'])->name('transaction.show');

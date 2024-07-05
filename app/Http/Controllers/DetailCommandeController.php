@@ -24,9 +24,10 @@ class DetailCommandeController extends Controller
 
 
     }
-    public function showTransaction($id)
+    public function show($id)
     {
         $transaction = DetailCommande::with(['commercial', 'action'])->findorFail($id);
+     
 
         return view('detailcommande.show', compact('transaction'));
     }

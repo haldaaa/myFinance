@@ -15,3 +15,11 @@ Journal de bord
 Mini tuto :
 
 Enlever un commit : git rebase -i
+
+
+05/07/2024
+
+-> Ajout navbar
+-> Ajout liens navbar
+-> Ajout layout 
+-> Page transaction/id et commercial/id ok 
