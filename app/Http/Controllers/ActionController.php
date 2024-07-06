@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\Commercial;
 use App\Models\Action;
 
+use Illuminate\Support\Facades\Artisan;
+
+
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
@@ -15,9 +18,17 @@ class ActionController extends Controller
 
 
 
-    // Ajuste le prix des fonctions aléatoirement, est appelé dans une commande artisan (app/Commands/MettreAJourLesPrixActions.php)
+
+    public function run()
+    {
+        Log::channel('myLog')->info("Fonction run");
+        Artisan::call('coucou');
+        return redirect()->back()->with('message', 'Commande exécutée avec succès!');
+    }
+    
 
 
+// Ajuste le prix des fonctions aléatoirement, est appelé dans une commande artisan (app/Commands/MettreAJourLesPrixActions.php)
  public function actionsParCommercial()
     {
         // Récupérer tous les commerciaux avec leurs détails de commandes et les actions associées

@@ -29,6 +29,10 @@ Route::get('/', function() {
 Route::get('/jetest', [ActionController::class, 'actionsParCommercial']);
 
 
+/* Run la crontab et l'app */ 
+
+Route::get('/run', [ActionController::class, 'run'])->name('run');
+
 
 
 /* Commercial */ 
