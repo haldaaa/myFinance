@@ -18,7 +18,7 @@ class CommercialFactory extends Factory
     {
         return [
             'nom' => $this->faker->name,
-            'budget' => $this->faker->randomFloat(3, 100, 10000) // Génère un nombre décimal aléatoire avec 2 décimales, compris entre 100 et 10000
+            'budget' => $this->faker->randomFloat(3, 99000, 1000000) // Génère un nombre décimal aléatoire avec 2 décimales, compris entre 100 et 10000
         ];
     }
     

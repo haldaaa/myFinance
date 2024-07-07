@@ -46,3 +46,9 @@ Route::get('/commercial/{id}', [CommercialController::class, 'show'])->name('com
 
 Route::get('/transaction', [DetailCommandeController::class, 'index'])->name('transactionIndex');
 Route::get('/transaction/{id}', [DetailCommandeController::class, 'show'])->name('transaction.show');
+
+
+/* Actions */ 
+
+Route::get('/action', [ActionController::class, 'index'])->name('actionIndex');
+Route::get('/action/{id}', [ActionController::class, 'show'])->name('action.show');

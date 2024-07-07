@@ -45,11 +45,11 @@ class CommercialController extends Controller
 
                     // Vérifier les conditions
                     if ($action->quantite < $quantite) {
-                        throw new \Exception("Quantite insuffisante pour l'action {$action->nomAction}");
+                        throw new \Exception("Quantite insuffisante pour l'action {$action->nomAction} , quantite disponible : {$action->quantite}");
                     }
 
                     if ($commercial->budget < $totalPrixCommande) {
-                        throw new \Exception("Budget insuffisant pour le commercial {$commercial->nom}");
+                        throw new \Exception("Budget insuffisant pour le commercial {$commercial->nom} , budget disponible : {$commercial->budget}");
                     }
 
                     // MaJ table action quantité

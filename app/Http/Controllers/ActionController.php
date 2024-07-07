@@ -3,22 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Models\Commercial;
 use App\Models\Action;
-
 use Illuminate\Support\Facades\Artisan;
-
-
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
+
+
 
 class ActionController extends Controller
 {
 
 
-
-
+ 
     public function run()
     {
         Log::channel('myLog')->info("Fonction run");
@@ -29,6 +26,7 @@ class ActionController extends Controller
 
 
 // Ajuste le prix des fonctions aléatoirement, est appelé dans une commande artisan (app/Commands/MettreAJourLesPrixActions.php)
+// A supprimer ?? 
  public function actionsParCommercial()
     {
         // Récupérer tous les commerciaux avec leurs détails de commandes et les actions associées
@@ -60,16 +58,36 @@ class ActionController extends Controller
     public function mettreAJourPrixActions()
     {
         Log::channel('myLog')->info('Fonction mettreAJourPrixActions');
+        
+        // Récupérer la valeur du compteur
+        $compteur = DB::table('compteurs')->where('id', 1)->value('valeur');
+        
         $actions = Action::all();
-        foreach ($actions as $action) {
+        $totalActions = $actions->count();
+        $actionsToUpdate = $actions->random($totalActions / 2);
+
+        foreach ($actionsToUpdate as $action) {
+            Log::channel('myLog')->info("Action sélectionnée : {$action->nomAction}, ID : {$action->id}");
+
             $prixInitial = $action->prix;
             $nouveauPrix = $this->ajusterPrix($prixInitial);
             $action->prix = $nouveauPrix;
             $action->save();
-
+    
+            // Insérer une entrée dans la table historiqueprix
+            DB::table('historiqueprix')->insert([
+                'action_id' => $action->id,
+                'prix' => $nouveauPrix,
+                'tour' => 1, // Remplacer par la valeur appropriée
+                'compteur' => $compteur,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+    
             Log::channel('myLog')->info("Le prix de l'action {$action->nomAction} vient d'etre mis a jour a {$nouveauPrix} E, ancien prix : {$prixInitial} E.");
+            Log::channel('myLog')->info("Une entrée a été ajoutée dans la table historiqueprix pour l'action {$action->nomAction}.");
         }
-
+    
         return response()->json(['message' => 'Les prix des actions ont été mis à jour.']);
     }
 
@@ -142,33 +160,21 @@ class ActionController extends Controller
     }
 
 
-    public function dividende()
+
+
+    public function index()
     {
-        Log::channel('mylog')->info("Fonction Dividende :");
-        
+
         $actions = Action::all();
+
+        return view('action.actionIndex' , compact('actions'));
     }
-
-
-    // Action qui attribue un coefficient de performance a une action en fonction de la
-    public function performance($action)
-    {
-
-    }
-
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
 
-        $action = Action::all();
-
-        return view('action.actionIndex' , compact('action'));
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -199,9 +205,11 @@ class ActionController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $action =Action::findOrFail($id);
 
+        return view('action.show', compact('action'));
+    
+    }
     /**
      * Show the form for editing the specified resource.
      *
