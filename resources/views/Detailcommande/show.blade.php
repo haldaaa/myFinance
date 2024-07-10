@@ -15,7 +15,10 @@
     <p><strong>Action:</strong> {{ $transaction->action->nomAction }}</p>
     <p><strong>Montant:</strong> {{ $transaction->total }}</p>
     <p><strong>Date:</strong> {{ $transaction->created_at }}</p>
+    <p><strong>Quantité:</strong> {{ $transaction->quantite }}</p>
+
+    
     <p> <strong> Retour a l'acceuil des transactions : </strong> <a href="{{ route('transactionIndex') }}">Acceuil</a> </p>
 </div>
-@endsection
 
+@endsection
