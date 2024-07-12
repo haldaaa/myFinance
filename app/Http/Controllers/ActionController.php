@@ -159,6 +159,19 @@ class ActionController extends Controller
         }
     }
 
+    public function acheterActionBouton($id)
+    {
+        Log::channel('myLog')->info("Fonction acheterActionBouton");
+        $action = Action::find($id);
+        if ($action) {
+            $quantiteAchetee = rand(50, 150);
+            $action->quantite += $quantiteAchetee;
+            $action->save();
+            Log::channel('myLog')->info("Nouvelle quantité pour l'action {$action->nomAction} : {$action->quantite}");
+        }
+        return redirect()->route('actionIndex');
+    }
+
 
 
 

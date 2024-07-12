@@ -52,3 +52,4 @@ Route::get('/transaction/{id}', [DetailCommandeController::class, 'show'])->name
 
 Route::get('/action', [ActionController::class, 'index'])->name('actionIndex');
 Route::get('/action/{id}', [ActionController::class, 'show'])->name('action.show');
+Route::post('/action/acheter/{id}', [ActionController::class, 'acheterActionBouton'])->name('action.acheter');
