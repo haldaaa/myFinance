@@ -23,3 +23,13 @@ Enlever un commit : git rebase -i
 -> Ajout liens navbar
 -> Ajout layout 
 -> Page transaction/id et commercial/id ok 
+
+
+13/07/2024
+
+-> Ajout des fonctions resetTables et runArtisanCommand dans le controller ActionController
+-> Ajout des boutons dans la vue acceuil.blade.php
+-> Ajout des fonctions dans le fichier routes/web.php
+
+ A faire : 
+-> Rajouter dans table detailcomande le numero de tour lors de l'achat.

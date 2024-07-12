@@ -12,6 +12,18 @@
                 @csrf
                 <button type="submit">Lancer Faire2Tours</button>
             </form>
+
+
+            <form action="{{ route('resetTables') }}" method="POST">
+                @csrf
+                <button type="submit">Réinitialiser les tables</button>
+            </form>
+        
+            <form action="{{ route('runArtisanCommand') }}" method="POST">
+                @csrf
+                <button type="submit">Lancer la commande Artisan 10 fois</button>
+            </form>
+            
     
             @if(session('message'))
                 <p>{{ session('message') }}</p>

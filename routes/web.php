@@ -53,3 +53,6 @@ Route::get('/transaction/{id}', [DetailCommandeController::class, 'show'])->name
 Route::get('/action', [ActionController::class, 'index'])->name('actionIndex');
 Route::get('/action/{id}', [ActionController::class, 'show'])->name('action.show');
 Route::post('/action/acheter/{id}', [ActionController::class, 'acheterActionBouton'])->name('action.acheter');
+
+Route::post('/resetTables', [ActionController::class, 'resetTables'])->name('resetTables');
+Route::post('/runArtisanCommand', [ActionController::class, 'runArtisanCommand'])->name('runArtisanCommand');

@@ -15,7 +15,45 @@ class ActionController extends Controller
 {
 
 
- 
+
+    // Fonction qui réinitialise les tables historiqueprix et detailcommande
+    // Utilisé dans la page home
+    public function resetTables()
+    {
+        Log::channel('myLog')->info("Fonction resetTables");
+
+        try {
+            DB::table('historiqueprix')->truncate();
+            DB::table('detail_commande')->truncate();
+            DB::table('compteurs')->truncate();
+        } catch (\Exception $e) {
+            Log::channel('myLog')->error("Erreur lors de la réinitialisation des tables : " . $e->getMessage());
+            return redirect()->back()->with('error', 'Erreur lors de la réinitialisation des tables.');
+        }
+        // Ajouter gestion d'erreur ici
+
+        return redirect()->back()->with('success', 'Les tables ont été réinitialisées.');
+    }
+
+
+
+    // Fonction qui exécute la commande artisan coucou 10 fois
+    // Utilisé dans la page home
+    public function runArtisanCommand()
+    {
+        Log::channel('myLog')->info("Fonction runArtisanCommand");
+        for ($i = 0; $i < 10; $i++) {
+            Artisan::call('coucou');
+        }
+
+        return redirect()->back()->with('success', 'La commande artisan a été exécutée 10 fois.');
+    }
+
+
+    
+  // Fonction qui exécute la commande artisan coucou
+  // Utilisé dans la page home
+  // A VERIFIER ! 
     public function run()
     {
         Log::channel('myLog')->info("Fonction run");
@@ -55,41 +93,41 @@ class ActionController extends Controller
 
 
     // Met a jour le prix de toute les actions :
-    public function mettreAJourPrixActions()
-    {
-        Log::channel('myLog')->info('Fonction mettreAJourPrixActions');
-        
-        // Récupérer la valeur du compteur
-        $compteur = DB::table('compteurs')->where('id', 1)->value('valeur');
-        
-        $actions = Action::all();
-        $totalActions = $actions->count();
-        $actionsToUpdate = $actions->random($totalActions / 2);
+   public function mettreAJourPrixActions()
+{
+    Log::channel('myLog')->info('Fonction mettreAJourPrixActions');
+    
+    // Récupérer la valeur du compteur
+    $compteur = DB::table('compteurs')->where('id', 1)->value('valeur');
+    
+    $actions = Action::all();
+    $totalActions = $actions->count();
+    $actionsToUpdate = $actions->random($totalActions / 2);
 
-        foreach ($actionsToUpdate as $action) {
-            Log::channel('myLog')->info("Action sélectionnée : {$action->nomAction}, ID : {$action->id}");
+    foreach ($actionsToUpdate as $action) {
+        Log::channel('myLog')->info("Action sélectionnée : {$action->nomAction}, ID : {$action->id}");
 
-            $prixInitial = $action->prix;
-            $nouveauPrix = $this->ajusterPrix($prixInitial);
-            $action->prix = $nouveauPrix;
-            $action->save();
-    
-            // Insérer une entrée dans la table historiqueprix
-            DB::table('historiqueprix')->insert([
-                'action_id' => $action->id,
-                'prix' => $nouveauPrix,
-                'tour' => 1, // Remplacer par la valeur appropriée
-                'compteur' => $compteur,
-                'created_at' => now(),
-                'updated_at' => now()
-            ]);
-    
-            Log::channel('myLog')->info("Le prix de l'action {$action->nomAction} vient d'etre mis a jour a {$nouveauPrix} E, ancien prix : {$prixInitial} E.");
-            Log::channel('myLog')->info("Une entrée a été ajoutée dans la table historiqueprix pour l'action {$action->nomAction}.");
-        }
-    
-        return response()->json(['message' => 'Les prix des actions ont été mis à jour.']);
+        $prixInitial = $action->prix;
+        $nouveauPrix = $this->ajusterPrix($prixInitial);
+        $action->prix = $nouveauPrix;
+        $action->save();
+
+        // Insérer une entrée dans la table historiqueprix
+        DB::table('historiqueprix')->insert([
+            'action_id' => $action->id,
+            'prix' => $nouveauPrix,
+            'tour' => 1, // Remplacer par la valeur appropriée
+            'compteur' => $compteur,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        Log::channel('myLog')->info("Le prix de l'action {$action->nomAction} vient d'etre mis a jour a {$nouveauPrix} E, ancien prix : {$prixInitial} E.");
+        Log::channel('myLog')->info("Une entrée a été ajoutée dans la table historiqueprix pour l'action {$action->nomAction}.");
     }
+
+    return response()->json(['message' => 'Les prix des actions ont été mis à jour.']);
+}
 
     public function ajusterPrix($prixInitial) 
     {
@@ -148,7 +186,7 @@ class ActionController extends Controller
         // Parcourir chaque action et ajouter un nombre aléatoire d'actions
         foreach ($actions as $action) {
             // Générer un nombre aléatoire entre 1 et 9
-            $nombreActions = rand(1, 9);
+            $nombreActions = rand(1, 75);
             Log::channel('myLog')->info("Action selectionnee : {$action->nomAction}, nombre d'actions a ajouter : {$nombreActions}");
 
             // Ajouter les actions à l'action sélectionnée
@@ -159,6 +197,9 @@ class ActionController extends Controller
         }
     }
 
+
+
+    // Fonction qui achete une action en cliquant sur le bouton acheter (page : actionindex)
     public function acheterActionBouton($id)
     {
         Log::channel('myLog')->info("Fonction acheterActionBouton");
