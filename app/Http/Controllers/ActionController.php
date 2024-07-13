@@ -116,7 +116,7 @@ class ActionController extends Controller
         DB::table('historiqueprix')->insert([
             'action_id' => $action->id,
             'prix' => $nouveauPrix,
-            'tour' => 1, // Remplacer par la valeur appropriée
+        
             'compteur' => $compteur,
             'created_at' => now(),
             'updated_at' => now()
@@ -257,11 +257,18 @@ class ActionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+
     public function show($id)
     {
         $action =Action::findOrFail($id);
+        $previousActionId = Action::where('id', '<', $id)->max('id');
+        $nextActionId = Action::where('id', '>', $id)->min('id');
 
-        return view('action.show', compact('action'));
+        return view('action.show', compact('action', 'previousActionId', 'nextActionId'));
+
+
+
     
     }
     /**

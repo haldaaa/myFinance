@@ -18,7 +18,7 @@
     <p><strong>Quantité:</strong> {{ $transaction->quantite }}</p>
 
     
-    <p> <strong> Retour a l'acceuil des transactions : </strong> <a href="{{ route('transactionIndex') }}">Acceuil</a> </p>
+    <p> <strong> Retour a l'acceuil des transactions : </strong> <a href="{{ route('detailCommandeIndex') }}">Acceuil</a> </p>
 </div>
 
 @endsection

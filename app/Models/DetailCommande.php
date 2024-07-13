@@ -10,7 +10,7 @@ class DetailCommande extends Model
     use HasFactory;
 
     protected $table = "detail_commande";
-    protected $fillable = ['commercial_id', 'action_id', 'quantite', 'prix_unitaire', 'total'];
+    protected $fillable = ['commercial_id', 'action_id', 'quantite', 'tour', 'prix_unitaire', 'total'];
 
     public function commercial()
     {

@@ -20,7 +20,7 @@
                 @foreach($transactions as $transaction)
                     <tr>
                         <td>{{ $transaction->id }}</td>
-                        <td><a href="{{ route('transaction.show', $transaction->id) }}">{{ $transaction->commercial->nom }}</a></td>
+                        <td><a href="{{ route('detailCommandeShow', $transaction->id) }}">{{ $transaction->commercial->nom }}</a></td>
                         <td>{{ $transaction->action->nomAction }}</td>
                         <td>{{ $transaction->quantite }}</td>
                         <td>{{ $transaction->prix_unitaire }}</td>

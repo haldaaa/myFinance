@@ -28,6 +28,9 @@ class CommercialController extends Controller
         $nombreCommerciaux = rand(1, $commerciaux->count());
         $commerciauxSelectionnes = $commerciaux->random($nombreCommerciaux);
 
+        // Récupérer la valeur du compteur
+        $compteur = DB::table('compteurs')->where('id', 1)->value('valeur');
+
         foreach ($commerciauxSelectionnes as $commercial) {
             // Sélectionner aléatoirement un nombre d'actions à acheter (entre 1 et 7)
             $nombreActions = rand(1, 7);
@@ -38,6 +41,7 @@ class CommercialController extends Controller
                 $quantite = rand(1, 10); // Quantité aléatoire entre 1 et 10
 
                 try {
+                    Log::channel('myLog')->info('Début de la transaction.');
                     DB::beginTransaction();
 
                     // Total commande
@@ -65,6 +69,7 @@ class CommercialController extends Controller
                         'commercial_id' => $commercial->id,
                         'action_id' => $action->id,
                         'quantite' => $quantite,
+                        'tour' => $compteur, // Ajout du champ 'tour'
                         'prix_unitaire' => $action->prix,
                         'total' => $totalPrixCommande,
                     ]);
@@ -81,7 +86,7 @@ class CommercialController extends Controller
 
         // Récupérer les informations des commerciaux pour la vue
         $commercialInfo = Commercial::all();
-        return view('commercial.commercialIndex', compact('commercialInfo'));
+        return view('commercial.commercialIndex', compact('commercialInfo', 'compteur'));
     }
 
 

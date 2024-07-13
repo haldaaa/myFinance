@@ -60,6 +60,15 @@
 
     <h2>Graphique de l'évolution des prix</h2>
     <canvas id="priceChart"></canvas>
+
+    <div class="navigation-buttons">
+        @if($action->id > 1 && isset($previousActionId))
+            <a href="{{ route('action.show', ['id' => $previousActionId]) }}" class="btn btn-primary">Action précédente</a>
+        @endif
+        @if(isset($nextActionId))
+            <a href="{{ route('action.show', ['id' => $nextActionId]) }}" class="btn btn-primary">Action suivante</a>
+        @endif
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

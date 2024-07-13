@@ -33,3 +33,11 @@ Enlever un commit : git rebase -i
 
  A faire : 
 -> Rajouter dans table detailcomande le numero de tour lors de l'achat.
+
+
+
+13/07/2024
+
+-> Changement nom transaction into detailcommande
+-> Numerdo de tour OK dans detailcommande
+-> Ajout bouton suivant/précedent dans action.show
