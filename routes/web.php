@@ -56,3 +56,4 @@ Route::post('/action/acheter/{id}', [ActionController::class, 'acheterActionBout
 
 Route::post('/resetTables', [ActionController::class, 'resetTables'])->name('resetTables');
 Route::post('/runArtisanCommand', [ActionController::class, 'runArtisanCommand'])->name('runArtisanCommand');
+Route::post('/detailcommande/clear', [DetailCommandeController::class, 'clearTable'])->name('clearDetailCommandeTable');

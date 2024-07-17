@@ -32,5 +32,10 @@ class DetailCommandeController extends Controller
         return view('detailcommande.show', compact('transaction'));
     }
 
-}
+    public function clearTable()
+    {
+        DetailCommande::truncate();
+        return redirect()->route('detailCommandeIndex')->with('success', 'Table detail_commande vidée avec succès.');
+    }
 
+}

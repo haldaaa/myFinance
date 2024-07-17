@@ -3,7 +3,12 @@
 @section('contenu')
     <title>Transactions</title>
     <div class="container">
-        <h1>Liste des Transactions</h1>
+        <h1>Liste des Transactions (page détail commande)</h1>
+
+        <form action="{{ route('clearDetailCommandeTable') }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-danger">Vider la Table</button>
+        </form>
 
         <table id="transactionsTable" class="display" border="1">
             <thead>
@@ -12,6 +17,7 @@
                     <th>Nom du Commercial</th>
                     <th>Nom de l'Action</th>
                     <th>Quantité</th>
+                    <th>Tour</th> <!-- Ajout de la colonne Tour -->
                     <th>Prix Unitaire</th>
                     <th>Total</th>
                 </tr>
@@ -23,6 +29,7 @@
                         <td><a href="{{ route('detailCommandeShow', $transaction->id) }}">{{ $transaction->commercial->nom }}</a></td>
                         <td>{{ $transaction->action->nomAction }}</td>
                         <td>{{ $transaction->quantite }}</td>
+                        <td>{{ $transaction->tour }}</td> <!-- Ajout de la donnée Tour -->
                         <td>{{ $transaction->prix_unitaire }}</td>
                         <td>{{ $transaction->total }}</td>
                     </tr>
