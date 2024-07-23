@@ -41,3 +41,6 @@ Enlever un commit : git rebase -i
 -> Changement nom transaction into detailcommande
 -> Numerdo de tour OK dans detailcommande
 -> Ajout bouton suivant/précedent dans action.show
+
+--> Todo :
+    -> Randomiser l'achats des actions 

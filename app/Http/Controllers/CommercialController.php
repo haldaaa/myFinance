@@ -23,23 +23,18 @@ class CommercialController extends Controller
 
         // Récupérer tous les commerciaux
         $commerciaux = Commercial::all();
-
         // Sélectionner aléatoirement un nombre de commerciaux (entre 1 et X)
         $nombreCommerciaux = rand(1, $commerciaux->count());
         $commerciauxSelectionnes = $commerciaux->random($nombreCommerciaux);
-
         // Récupérer la valeur du compteur
         $compteur = DB::table('compteurs')->where('id', 1)->value('valeur');
-
         foreach ($commerciauxSelectionnes as $commercial) {
             // Sélectionner aléatoirement un nombre d'actions à acheter (entre 1 et 7)
             $nombreActions = rand(1, 7);
-
             for ($i = 0; $i < $nombreActions; $i++) {
                 // Sélectionner une action aléatoirement
                 $action = Action::inRandomOrder()->first();
                 $quantite = rand(1, 10); // Quantité aléatoire entre 1 et 10
-
                 try {
                     Log::channel('myLog')->info('Début de la transaction.');
                     DB::beginTransaction();
@@ -94,9 +89,8 @@ class CommercialController extends Controller
 
     public function index()
     {
-        $commercialInfo = Commercial::all();
-        
-        return view('commercial.commercialIndex', compact('commercialInfo'));
+        $commercialInfo = Commercial::with(['detailCommandes.action'])->get();
+        return view('Commercial.commercialIndex', compact('commercialInfo'));
     }
 
     /**
@@ -134,10 +128,19 @@ class CommercialController extends Controller
      */
     public function show($id)
     {
-        $commercial = Commercial::findOrFail($id);
-        
-        return view('commercial.show', compact('commercial'));
+        $commercial = Commercial::with(['detailCommandes.action'])->findOrFail($id);
+        $commercial = Commercial::withCount('detailCommandes')->findOrFail($id);
+        // Calcul du prix total par action et du prix total général
+        $totalGeneral = 0;
+        foreach ($commercial->detailCommandes as $detail) {
+            $detail->total_par_action = $detail->quantite * $detail->prix_unitaire;
+            $totalGeneral += $detail->total_par_action;
+        }
 
+        // Paginer les détails des commandes
+        $detailCommandes = $commercial->detailCommandes()->paginate(10);
+
+        return view('Commercial.show', compact('commercial', 'totalGeneral', 'detailCommandes'));
     }
 
     /**
