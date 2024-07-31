@@ -44,3 +44,13 @@ Enlever un commit : git rebase -i
 
 --> Todo :
     -> Randomiser l'achats des actions 
+
+
+
+31/07/2024
+
+Procédure push git :
+eval "$(ssh-agent -s)
+ssh-add maclé 
+git commit&push
+
