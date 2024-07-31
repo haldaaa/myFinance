@@ -64,7 +64,7 @@ class CommercialController extends Controller
                         'commercial_id' => $commercial->id,
                         'action_id' => $action->id,
                         'quantite' => $quantite,
-                        'tour' => $compteur, // Ajout du champ 'tour'
+                        'tour' => $compteur,
                         'prix_unitaire' => $action->prix,
                         'total' => $totalPrixCommande,
                     ]);

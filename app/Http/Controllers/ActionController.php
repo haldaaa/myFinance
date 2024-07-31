@@ -14,18 +14,28 @@ use Illuminate\Support\Facades\DB;
 class ActionController extends Controller
 {
 
+    public function dividende()
+    {
+        Log::channel('myLog')->info("Fonction dividende");
+
+        $actionsByCommercial = Action::with('commercial')->get()->groupBy('commercial_id');
+        return view('action.actionsByCommercial', compact('actionsByCommercial'));
+
+    }
+
 
 
     // Fonction qui réinitialise les tables historiqueprix et detailcommande
     // Utilisé dans la page home
     public function resetTables()
     {
-        Log::channel('myLog')->info("Fonction resetTables");
+        Log::channel('myLog')->info("## Fonction resetTables ##");
 
         try {
             DB::table('historiqueprix')->truncate();
             DB::table('detail_commande')->truncate();
             DB::table('compteurs')->truncate();
+            Log::channel('myLog')->info("# Fonction resetTables terminés avec succès #");
         } catch (\Exception $e) {
             Log::channel('myLog')->error("Erreur lors de la réinitialisation des tables : " . $e->getMessage());
             return redirect()->back()->with('error', 'Erreur lors de la réinitialisation des tables.');

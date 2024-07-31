@@ -37,6 +37,15 @@ class Faire2Tours extends Command
      */
     public function handle()
     {
+        
+        // Logique d'un tour de compteur :
+        // 1. Incrémenter le compteur
+        // 2. Vérifier si le compteur est un multiple de 10
+        // 3. Si oui, calculer le dividende
+        // 4. Les commerciaux achetent des actions
+        // 5. Mettre à jour le prix des actions
+        // 6. Mettre à jour la quantité des actions
+        
         // Incrémenter le compteur
         $compteur = Compteur::first();
         if (!$compteur) {
@@ -49,6 +58,15 @@ class Faire2Tours extends Command
         // Afficher le numéro du tour
         $tour = $compteur->valeur;
         Log::channel('myLog')->info("[SCRIPT] Debut du tour {$tour}");
+
+        // Calcul dividende
+        // Vérifier si le compteur est un multiple de 10
+        if ($compteur->valeur % 10 === 0) {
+            Log::channel('myLog')->info("[SCRIPT] Fonction dividende");
+            
+            // TODO Inserer fonction dividende
+
+        }
 
         // Les commerciaux achetent des actions
         Log::channel('myLog')->info("[SCRIPT] 1/3 -> Fonction acheterAction 1/1");
@@ -67,8 +85,6 @@ class Faire2Tours extends Command
         Log::channel('myLog')->info("[SCRIPT] 3/3 -> Fonction quantiteAction");
         $quantiteAction = new ActionController();
         $quantiteAction->quantiteAction();
-
-       
 
         Log::channel('myLog')->info("[SCRIPT] Fin du tour {$tour}");
 

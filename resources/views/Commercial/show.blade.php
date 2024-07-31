@@ -11,19 +11,48 @@
             <tr>
                 <th>Nom</th>
                 <th>Budget</th>
+                <th>Nombre d'actions</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>{{ $commercial->nom }}</td>
                 <td>{{ $commercial->budget }}</td>
+                <td>{{ $commercial->detail_commandes_count }}</td>
             </tr>
         </tbody>
     </table>
 
-    <!-- Ajoutez ici d'autres détails si nécessaire -->
+    <!-- Liste des actions achetées -->
+    <h2>Actions achetées</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>Quantité</th>
+                <th>Prix Unitaire</th>
+                <th>Prix Total par Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($detailCommandes as $detail)
+                <tr>
+                    <td>{{ $detail->action->nomAction }}</td>
+                    <td>{{ $detail->quantite }}</td>
+                    <td>{{ $detail->prix_unitaire }}</td>
+                    <td>{{ $detail->total }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 
-    <a href="{{ route('commercial.index') }}">Retour à la liste des commerciaux</a>
+    <!-- Pagination -->
+    {{ $detailCommandes->links() }}
+
+    <!-- Prix total général -->
+    <h3>Prix Total Général: {{ $totalGeneral }}</h3>
+
+    <a href="{{ route('commercial.index') }}" class="btn btn-primary">Retour à la liste des commerciaux</a>
 </div>
 
 @endsection
