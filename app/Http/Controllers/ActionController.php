@@ -64,11 +64,17 @@ class ActionController extends Controller
   // Fonction qui exécute la commande artisan coucou
   // Utilisé dans la page home
   // A VERIFIER ! 
-    public function run()
+    public function run(Request $request)
     {
         Log::channel('myLog')->info("Fonction run");
-        Artisan::call('coucou');
-        return redirect()->back()->with('message', 'Commande exécutée avec succès!');
+        if ($request->input('action') === 'start') {
+            Artisan::call('schedule:work');
+        } else {
+            // Logique pour arrêter la commande
+            // Cela dépend de votre implémentation
+        }
+
+        return redirect()->back();
     }
     
 
@@ -314,4 +320,8 @@ class ActionController extends Controller
     {
         //
     }
+
+
+ 
+
 }
